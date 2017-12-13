@@ -6,17 +6,18 @@
 
 int verificarDeclaracaoVariavel(char *nome, int codigoTipo, int categoria, int zumbi){
     int i;
-    if((tabSimbolo[POSICAO].categoria == FUNCAO) && (tabSimbolo[POSICAO].escopo == 0) && (tabSimbolo[POSICAO].zumbi == 1)){
+    if((codigoTipo == FUNCAO)){
         for(i = POSICAO-1; i>-1; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ //tem o nome igual
                 printf("Redeclaracao de Função");
                 return 0;
             } else{
+                printf("azul!");
                 return 1;
             }
         }
     } else{
-        for(i = POSICAO-1; i>-1 || tabSimbolo[i].categoria != FUNCAO; i--){
+        for(i = POSICAO-1; i>-1 || codigoTipo != FUNCAO; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ // tem o nome igual
                 printf("Redeclaracao de Variável Local ou Parametro");
                 return 0;
@@ -38,17 +39,34 @@ int verificarDeclaracao(char * lexema, int escopo){
                 return 1;
             }
         } else{
-            printf("Variavel não declarado");
+            printf("Variavel não declarada");
             return 0;
         }
     }
 }
 
-int verificarPrototipo(){
+int verificarRepetePrototipo(char *nome){
     int i;
     for(i = POSICAO-1; i>-1; i--){
-        if((tabSimbolo[POSICAO].categoria == PROTOT )){
+        if((tabSimbolo[i].categoria == PROTOT )){
+            if(strcmp(tabSimbolo[i].nome,nome)==0){
+                printf("Protótipo ja declarado");
+                return 0;
+            }else{
+                return 1;
+            }
         }
     }
 }
+
+int verificarRetorno(int codigoTipo){
+    if(codigoTipo == SEMRETORNO){
+        return;
+    }else{
+        printf("A função não pode ter um retorno");
+    }
+}
+
+
+
 

@@ -37,7 +37,6 @@ while(!feof(arquivo)){
             if(nextEstrutura.cat == SN && nextEstrutura.codigo == PONTO_VIRGULA){
                 escopo = 0;
                 zumbi = 1;
-
                 gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                 analisadorLexico(arquivo);
             }else if(nextEstrutura.cat == SN && nextEstrutura.codigo == VIRGULA){
@@ -64,7 +63,7 @@ while(!feof(arquivo)){
                 gerenciadorTabSimbolos(nomeIdentificador,codigoTipo,FUNCAO,zumbi);
                 analisadorLexico(arquivo);
                 tipos_param();
-                verificarPrototipo(nomeIdentificador, qntdParam);
+                //verificarPrototipo(nomeIdentificador, qntdParam);
                 if((Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE)){
                     analisadorLexico(arquivo);
                     if((Estrutura.cat == SN && Estrutura.codigo == ABRE_CHAVES)){
@@ -132,7 +131,9 @@ while(!feof(arquivo)){
             if(Estrutura.cat == ID){
                 zumbi = 1;
                 escopo =0;
-                gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                if(verificarPrototipo(Estrutura.tipo.lexema)){
+                    gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                }
                 //verificarTabelaSimbolos();
                 analisadorLexico(arquivo);
                 if(Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE){
@@ -157,7 +158,9 @@ while(!feof(arquivo)){
                     if(Estrutura.cat == ID){
                         zumbi = 1;
                         escopo =0;
-                        gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                        if(verificarPrototipo(Estrutura.tipo.lexema)){
+                            gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                        }
                         analisadorLexico(arquivo);
                         if((Estrutura.cat == SN) && (Estrutura.codigo == ABRE_PARENTESE)){
                             //gerenciadorTabSimbolos(codigoTipo, PROTOT, zumbi);
@@ -190,7 +193,9 @@ while(!feof(arquivo)){
                     codigoTipo = SEMRETORNO;
                     zumbi = 1;
                     escopo =0;
-                    gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                    if(verificarPrototipo(Estrutura.tipo.lexema)){
+                        gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                    }
 
                     analisadorLexico(arquivo);
                     if((Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE)){
@@ -214,7 +219,9 @@ while(!feof(arquivo)){
                         if(Estrutura.cat == ID){
                             zumbi = 1;
                             escopo =0;
-                            gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                            if(verificarPrototipo(Estrutura.tipo.lexema)){
+                                gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
+                            }
                             analisadorLexico(arquivo);
                             if((Estrutura.cat == SN) && (Estrutura.codigo == ABRE_PARENTESE)){
                                 //gerenciadorTabSimbolos(codigoTipo, PROTOT, zumbi);
@@ -347,6 +354,9 @@ void tipos_param(){
                 }
             }
         }
+    }else if(Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE){
+        printf("Erro SEMPARAM");
+        erro();
     }
 }
 
@@ -610,7 +620,6 @@ void termo(){
 void fator(){
    analisadorLexico(arquivo);
    if(Estrutura.cat == ID){
-        verificarDeclaracao(Estrutura.tipo.lexema, 1);
         analisadorLexico(arquivo);
         if((Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE)){
             analisadorLexico(arquivo);

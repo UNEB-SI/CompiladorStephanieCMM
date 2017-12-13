@@ -36,7 +36,7 @@
 	"gerenciador.h"
 	"semantico.h"
 
-1513187213 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.c
+1513195256 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.c
 	<string.h>
 	"sintatico.h"
 	"gerenciador.h"
@@ -64,12 +64,12 @@
 1513182355 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\main.c
 	"sintatico.h"
 
-1513189949 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.c
+1513196857 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.c
 	<stdio.h>
 	"gerenciador.h"
 	"semantico.h"
 
-1513190291 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.c
+1513197148 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.c
 	<string.h>
 	"sintatico.h"
 	"gerenciador.h"

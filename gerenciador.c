@@ -58,6 +58,8 @@ void gerenciadorTabSimbolos(char *nome, int codigoTipo, int categoria, int zumbi
 
     if(codigoTipo == FUNCAO || codigoTipo == PARAMETRO || codigoTipo == VARIAVEL){
        auxiliar = verificarDeclaracaoVariavel(nome, codigoTipo, categoria, zumbi);
+
+        printf("Auxiliar: %d", auxiliar);
        if(auxiliar == 1){
             inserirTabela(nome, codigoTipo, categoria,zumbi);
        } else{
