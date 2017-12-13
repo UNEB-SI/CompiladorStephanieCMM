@@ -45,6 +45,23 @@ int verificarDeclaracao(char * lexema, int escopo){
     }
 }
 
+int temPrototipo(char *nome, int tipo, int qntdParam){
+    int i;
+    for(i = POSICAO-1; i>-1; i--){
+        if(strcmp(tabSimbolo[i].nome,nome)==0){
+           if((tabSimbolo[i].categoria == FUNCAO && tabSimbolo[i].codigoTipo == tipo && tabSimbolo[i].param.quantidade == qntdParam)){
+               return 1;
+            }
+        } else if(tabSimbolo[i].categoria == FUNCAO && tabSimbolo[i].codigoTipo != tipo && tabSimbolo[i].param.quantidade == qntdParam){
+            printf("Tipos incompativeis");
+            return 0;
+        }else{
+            printf("Quantidades de parâmetros incompatíveis");
+            return 0;
+        }
+    }
+}
+
 int verificarRepetePrototipo(char *nome){
     int i;
     for(i = POSICAO-1; i>-1; i--){
