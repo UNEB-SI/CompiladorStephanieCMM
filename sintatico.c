@@ -427,11 +427,13 @@ void cmd(){
     if(Estrutura.cat == PR && Estrutura.codigo == SE){
         analisadorLexico(arquivo);
         if(Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE){
+            verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
             expr();
             if(Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE){
                 analisadorLexico(arquivo);
                 if(nextEstrutura.cat == PR && nextEstrutura.codigo == RETORNE){
                     analisadorLexico(arquivo);
+                    verificarRetorno(codigoTipo);
                 }
                 cmd();
                 if(Estrutura.cat == PR && Estrutura.codigo == SENAO){
@@ -452,6 +454,7 @@ void cmd(){
         analisadorLexico(arquivo);
         if(Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE){
             analisadorLexico(arquivo);
+            verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
             expr();
             if(Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE){
                 analisadorLexico(arquivo);
@@ -480,6 +483,7 @@ void cmd(){
                 if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
                     analisadorLexico(arquivo);
                 } else{
+                    verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
                     expr();
                 }
              }else{
@@ -507,6 +511,7 @@ void cmd(){
     } else if(Estrutura.cat == PR && Estrutura.codigo == RETORNE){
         analisadorLexico(arquivo);
         if(!(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA)){
+            verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
             expr();
         }
         if(nextEstrutura.cat == SN && nextEstrutura.codigo == PONTO_VIRGULA){
@@ -534,9 +539,11 @@ void cmd(){
                 expr();
                 if(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
                     analisadorLexico(arquivo);
+                    verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
                     expr();
                      while((Estrutura.cat == SN && Estrutura.codigo == VIRGULA)){
                         analisadorLexico(arquivo);
+                        verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
                         expr();
                     }
                 }
@@ -648,6 +655,7 @@ void fator(){
         analisadorLexico(arquivo);
     } else if(Estrutura.cat == SN && Estrutura.codigo == ABRE_PARENTESE){
         analisadorLexico(arquivo);
+        verificarDeclaracaoVariavel(Estrutura.tipo.lexema, codigoTipo, VARIAVEL, zumbi);
         expr();
         if(Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE){
             analisadorLexico(arquivo);
