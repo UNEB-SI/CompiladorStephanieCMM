@@ -2,14 +2,14 @@
 #include "gerenciador.h"
 #include "semantico.h"
 
-//DECLARA«’ES
+//DECLARA√á√ïES
 
 int verificarDeclaracaoVariavel(char *nome, int codigoTipo, int categoria, int zumbi){
     int i;
     if((codigoTipo == FUNCAO)){
         for(i = POSICAO-1; i>-1; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ //tem o nome igual
-                printf("Redeclaracao de FunÁ„o");
+                printf("Redeclaracao de Fun√ß√£o");
                 return 0;
             } else{
                 printf("azul!");
@@ -19,7 +19,7 @@ int verificarDeclaracaoVariavel(char *nome, int codigoTipo, int categoria, int z
     } else{
         for(i = POSICAO-1; i>-1 || codigoTipo != FUNCAO; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ // tem o nome igual
-                printf("Redeclaracao de Vari·vel Local ou Parametro");
+                printf("Redeclaracao de Vari√°vel Local ou Parametro");
                 return 0;
             } else{
                 return 1;
@@ -39,7 +39,7 @@ int verificarDeclaracao(char * lexema, int escopo){
                 return 1;
             }
         } else{
-            printf("Variavel n„o declarada");
+            printf("Variavel n√£o declarada");
             return 0;
         }
     }
@@ -56,7 +56,7 @@ int temPrototipo(char *nome, int tipo, int qntdParam){
             printf("Tipos incompativeis");
             return 0;
         }else{
-            printf("Quantidades de par‚metros incompatÌveis");
+            printf("Quantidades de par√¢metros incompat√≠veis");
             return 0;
         }
     }
@@ -67,7 +67,7 @@ int verificarRepetePrototipo(char *nome){
     for(i = POSICAO-1; i>-1; i--){
         if((tabSimbolo[i].categoria == PROTOT )){
             if(strcmp(tabSimbolo[i].nome,nome)==0){
-                printf("ProtÛtipo ja declarado");
+                printf("Prot√≥tipo ja declarado");
                 return 0;
             }else{
                 return 1;
@@ -80,10 +80,14 @@ int verificarRetorno(int codigoTipo){
     if(codigoTipo == SEMRETORNO){
         return;
     }else{
-        printf("A funÁ„o n„o pode ter um retorno");
+        printf("A fun√ß√£o n√£o pode ter um retorno");
     }
 }
 
+/*int verificarFuncaoPrincipal(){
+
+
+}*/
 
 
 

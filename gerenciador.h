@@ -19,6 +19,7 @@ typedef struct tabelaSimbolo{
     int escopo;
     int linha;
     int zumbi;
+    //int label;
     PARAMETROS param;
     CTG categoria;
 }TABELA;
