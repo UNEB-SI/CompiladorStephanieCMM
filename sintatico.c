@@ -22,6 +22,12 @@ void sintatico(){
 //escopo == 0 = Global e escopo == 1 = Local
 void prog(){
 
+//FILE *arquivo-codigo;
+
+//arquivoGeracaoCodigo();
+
+//fprintf(arquivo-codigo, "INIP\n");
+    
 while(!feof(arquivo)){
     if(Estrutura.cat == PR && Estrutura.codigo == CARACTER || Estrutura.codigo == INTEIRO || Estrutura.codigo == REAL
         || Estrutura.codigo == BOOLEANO){
@@ -318,6 +324,7 @@ while(!feof(arquivo)){
                 }
             }
         }
+        //fprintf(arquivo-codigo, "HALT\n");
     }
 }
 
