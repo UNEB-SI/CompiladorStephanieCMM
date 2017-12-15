@@ -368,6 +368,7 @@ while(!feof(arquivo)){
 
 void tipos_param(){
     analisadorLexico(arquivo);
+
     if((Estrutura.cat == PR && Estrutura.codigo == SEMPARAM)){
         analisadorLexico(arquivo);
     } else if(Estrutura.cat == PR && Estrutura.codigo == CARACTER || Estrutura.codigo == INTEIRO
