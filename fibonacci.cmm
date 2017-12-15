@@ -1,6 +1,3 @@
-prototipo inteiro fibonacci(inteiro);
-prototipo inteiro fibonacci(inteiro);
-
 inteiro fibonacci(inteiro num){
 	real r;
 
@@ -16,6 +13,7 @@ inteiro fibonacci(inteiro num) {
 semretorno principal(semparam) {
 
      inteiro i, n;
+	real b;
 
      imprima("Digite a qtd de termos da sequencia: ");
      leia(n);

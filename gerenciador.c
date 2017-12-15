@@ -33,7 +33,7 @@ void imprimirTabelaSimbolos(){
 	 	    printf("\n\t Nome do Identificador: %s | Codigo do Tipo do Identificador : %d |Escopo (Global = 0;Local = 1): %d | Categoria %d | Zumbi: %d\n",tabSimbolo[i].nome,
               tabSimbolo[i].codigoTipo, tabSimbolo[i].escopo,tabSimbolo[i].categoria, tabSimbolo[i].zumbi);
    	  }else{
-	   	printf("N√£o deu...");
+	   	printf("N„o deu...");
    	  }
    }
 	getchar();
@@ -59,30 +59,13 @@ void gerenciadorTabSimbolos(char *nome, int codigoTipo, int categoria, int zumbi
     if(codigoTipo == FUNCAO || codigoTipo == PARAMETRO || codigoTipo == VARIAVEL){
        auxiliar = verificarDeclaracaoVariavel(nome, codigoTipo, categoria, zumbi);
 
-        printf("Auxiliar: %d", auxiliar);
+        //printf("Auxiliar: %d", auxiliar);
        if(auxiliar == 1){
             inserirTabela(nome, codigoTipo, categoria,zumbi);
        } else{
-            removerItemTabSimbolos(); //remo√ß√£o somente em fun√ß√µes
+            removerItemTabSimbolos(); //remoÁ„o somente em funÁıes
        }
     }
-	
-   /*void arquivoGeracaoCodigo(){
-
-  FILE *arquivo; // cria vari√°vel ponteiro para o arquivo
-  char palavra[20]; // vari√°vel do tipo string
- 
-  //abrindo o arquivo com tipo de abertura w
-  arquivo = fopen("arquivo_geracao_codigo.txt", "w");
- 
-  //testando se o arquivo foi realmente criado
-  if(arquivo == NULL){
-     printf("Erro na abertura do arquivo!");
-     exit(1);
-  }
-
-}
-*/
 }
 
 

@@ -36,13 +36,13 @@
 	"gerenciador.h"
 	"semantico.h"
 
-1513195256 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.c
+1513367427 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.c
 	<string.h>
 	"sintatico.h"
 	"gerenciador.h"
 	"semantico.h"
 
-1513182355 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.h
+1513368814 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.h
 	"lexico.h"
 
 1513182355 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\lexico.h
@@ -50,9 +50,9 @@
 	<stdlib.h>
 	<string.h>
 
-1513182355 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.h
+1513366739 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\gerenciador.h
 
-1513184110 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.h
+1513367862 c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.h
 
 1513182355 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\lexico.c
 	<ctype.h>
@@ -64,13 +64,14 @@
 1513182355 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\main.c
 	"sintatico.h"
 
-1513196857 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.c
+1513367989 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\semantico.c
 	<stdio.h>
 	"gerenciador.h"
 	"semantico.h"
 
-1513197148 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.c
+1513371060 source:c:\users\teste\desktop\compiladorstephaniecmm-master (1)\compiladorstephaniecmm-master\sintatico.c
 	<string.h>
 	"sintatico.h"
 	"gerenciador.h"
+	"semantico.h"
 

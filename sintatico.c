@@ -1,10 +1,36 @@
 #include <string.h>
 #include "sintatico.h"
 #include "gerenciador.h"
+#include "semantico.h"
 
-FILE *arquivo;
+FILE *arquivo, *arq;
 int contLinha;
+int numVariavel = 0;
 TOKEN Estrutura, nextEstrutura;
+int num_label = 0;
+char label[10];
+char label_letra;
+
+
+char adiciona_Label(){
+	num_label++;
+	strcpy(label_letra, "L");
+    snprintf (label, 10, "%s%d", label_letra, num_label );
+	strcat(label, "\n");
+	fprintf(arq,label);
+	return label;
+}
+
+void  abrir_gerador_codigo(){
+    arq = fopen("codigoCMM.cmm","w");
+    if(arq == NULL)
+        printf("Erro ao abrir o arquivo\n");
+}
+
+void fechar_gerador_codigo(){
+	fclose(arq);
+}
+
 
 void erro(){
     printf("Erro sintatico na linha %d\n",contLinha);
@@ -22,12 +48,9 @@ void sintatico(){
 //escopo == 0 = Global e escopo == 1 = Local
 void prog(){
 
-//FILE *arquivo-codigo;
+abrir_gerador_codigo();
+fprintf(arq, "INIP\n");
 
-//arquivoGeracaoCodigo();
-
-//fprintf(arquivo-codigo, "INIP\n");
-    
 while(!feof(arquivo)){
     if(Estrutura.cat == PR && Estrutura.codigo == CARACTER || Estrutura.codigo == INTEIRO || Estrutura.codigo == REAL
         || Estrutura.codigo == BOOLEANO){
@@ -44,7 +67,9 @@ while(!feof(arquivo)){
                 escopo = 0;
                 zumbi = 1;
                 gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
+                numVariavel++;
                 analisadorLexico(arquivo);
+                fprintf(arq, "AMEM %d\n", numVariavel);
             }else if(nextEstrutura.cat == SN && nextEstrutura.codigo == VIRGULA){
                 while(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
                     analisadorLexico(arquivo);
@@ -52,12 +77,14 @@ while(!feof(arquivo)){
                        escopo = 0;//global
                        zumbi = 1; //ativo
                        //verificarTabelaSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
+                       numVariavel++;
                        gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                        //verificarTabelaSimbolos();
                        analisadorLexico(arquivo);
                     }
                 }
                  if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
+                    fprintf(arq, "AMEM %d\n", numVariavel);
                     analisadorLexico(arquivo);
                 } else{
                     printf("ERRO!!Esta faltando um PONTO_VIRGULA");
@@ -73,6 +100,7 @@ while(!feof(arquivo)){
                 if((Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE)){
                     analisadorLexico(arquivo);
                     if((Estrutura.cat == SN && Estrutura.codigo == ABRE_CHAVES)){
+                        fprintf(arq, "INIPR\n");
                         analisadorLexico(arquivo);
                         if(Estrutura.cat == PR && Estrutura.codigo == CARACTER || Estrutura.codigo == INTEIRO
                             || Estrutura.codigo == REAL || Estrutura.codigo == BOOLEANO){
@@ -83,9 +111,11 @@ while(!feof(arquivo)){
                                 if(Estrutura.cat == ID){
                                     escopo = 1;
                                     zumbi = 0;
+                                    numVariavel++;
                                     gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                                     analisadorLexico(arquivo);
                                     if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
+                                        fprintf(arq, "AMEM %d\n", numVariavel);
                                         analisadorLexico(arquivo);
                                     }else if(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
                                         while(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
@@ -93,11 +123,13 @@ while(!feof(arquivo)){
                                             if(Estrutura.cat == ID){
                                                zumbi = 1;
                                                escopo =0;
+                                                numVariavel++;
                                                gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                                                analisadorLexico(arquivo);
                                             }
                                         }
                                         if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
+                                            fprintf(arq, "AMEM %d\n", numVariavel);
                                             analisadorLexico(arquivo);
 
                                         } else{
@@ -137,7 +169,7 @@ while(!feof(arquivo)){
             if(Estrutura.cat == ID){
                 zumbi = 1;
                 escopo =0;
-                if(verificarPrototipo(Estrutura.tipo.lexema)){
+                if(verificarRepetePrototipo(Estrutura.tipo.lexema)){
                     gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
                 }
                 //verificarTabelaSimbolos();
@@ -164,7 +196,7 @@ while(!feof(arquivo)){
                     if(Estrutura.cat == ID){
                         zumbi = 1;
                         escopo =0;
-                        if(verificarPrototipo(Estrutura.tipo.lexema)){
+                        if(verificarRepetePrototipo(Estrutura.tipo.lexema)){
                             gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
                         }
                         analisadorLexico(arquivo);
@@ -199,7 +231,7 @@ while(!feof(arquivo)){
                     codigoTipo = SEMRETORNO;
                     zumbi = 1;
                     escopo =0;
-                    if(verificarPrototipo(Estrutura.tipo.lexema)){
+                    if(verificarRepetePrototipo(Estrutura.tipo.lexema)){
                         gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
                     }
 
@@ -225,7 +257,7 @@ while(!feof(arquivo)){
                         if(Estrutura.cat == ID){
                             zumbi = 1;
                             escopo =0;
-                            if(verificarPrototipo(Estrutura.tipo.lexema)){
+                            if(verificarRepetePrototipo(Estrutura.tipo.lexema)){
                                 gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,PROTOT,zumbi);
                             }
                             analisadorLexico(arquivo);
@@ -270,6 +302,7 @@ while(!feof(arquivo)){
                         if((Estrutura.cat == SN && Estrutura.codigo == FECHA_PARENTESE)){
                             analisadorLexico(arquivo);
                             if((Estrutura.cat == SN && Estrutura.codigo == ABRE_CHAVES)){
+                                fprintf(arq, "INIPR\n");
                                 analisadorLexico(arquivo);
                                 if(Estrutura.cat == PR && Estrutura.codigo == CARACTER || Estrutura.codigo == INTEIRO
                                     || Estrutura.codigo == REAL || Estrutura.codigo == BOOLEANO){
@@ -280,9 +313,11 @@ while(!feof(arquivo)){
                                         if(Estrutura.cat == ID){
                                             escopo = 1;
                                             zumbi = 0;
+                                            numVariavel++;
                                             gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                                             analisadorLexico(arquivo);
                                             if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
+                                                fprintf(arq, "AMEM %d\n", numVariavel);
                                                 analisadorLexico(arquivo);
                                             }else if(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
                                                 while(Estrutura.cat == SN && Estrutura.codigo == VIRGULA){
@@ -290,12 +325,13 @@ while(!feof(arquivo)){
                                                     if(Estrutura.cat == ID){
                                                         escopo = 1;
                                                         zumbi = 0;
-
+                                                        numVariavel++;
                                                         gerenciadorTabSimbolos(Estrutura.tipo.lexema,codigoTipo,VARIAVEL,zumbi);
                                                         analisadorLexico(arquivo);
                                                     }
                                                 }
                                                 if(Estrutura.cat == SN && Estrutura.codigo == PONTO_VIRGULA){
+                                                    fprintf(arq, "AMEM %d\n", numVariavel);
                                                     analisadorLexico(arquivo);
                                                 } else{
                                                     printf("ERRO!! Esta faltando PONTO_VIRGULA no fim da declaracao da variavel!!!\n");
@@ -324,7 +360,9 @@ while(!feof(arquivo)){
                 }
             }
         }
-        //fprintf(arquivo-codigo, "HALT\n");
+        fprintf(arq, "DMEM %d\n",  numVariavel);
+        fprintf(arq, "HALT\n");
+        fechar_gerador_codigo();
     }
 }
 

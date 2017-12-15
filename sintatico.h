@@ -16,5 +16,8 @@ void fator();
 int op_rel();
 void tipos_p_opc();
 void erro();
+void abrir_gerador_codigo();
+void fechar_gerador_codigo();
+char adiciona_Label();
 
 #endif //SINTATICO_INCLUDED

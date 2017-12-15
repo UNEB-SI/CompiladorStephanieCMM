@@ -9,17 +9,16 @@ int verificarDeclaracaoVariavel(char *nome, int codigoTipo, int categoria, int z
     if((codigoTipo == FUNCAO)){
         for(i = POSICAO-1; i>-1; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ //tem o nome igual
-                printf("Redeclaracao de Função");
+                printf("Redeclaracao de Funcaoo");
                 return 0;
             } else{
-                printf("azul!");
                 return 1;
             }
         }
     } else{
         for(i = POSICAO-1; i>-1 || codigoTipo != FUNCAO; i--){
             if((strcmp(tabSimbolo[i].nome,nome) == 0)){ // tem o nome igual
-                printf("Redeclaracao de Variável Local ou Parametro");
+                printf("Redeclaracao de Variavel Local ou Parametro");
                 return 0;
             } else{
                 return 1;
@@ -77,17 +76,24 @@ int verificarRepetePrototipo(char *nome){
 }
 
 int verificarRetorno(int codigoTipo){
-    if(codigoTipo == SEMRETORNO){
-        return;
+    if(codigoTipo == 4){
+        return 1;
     }else{
         printf("A função não pode ter um retorno");
+        return 0;
     }
 }
 
-/*int verificarFuncaoPrincipal(){
+int verificarFuncaoPrincipal(){
+    int i;
+    for(i = POSICAO-1; i>-1; i--){
+        if(strcmp(tabSimbolo[i].nome, "principal")){
+            return 1;
+        }
+        printf("O programa não possui um programa principal");
+        return 0;
+    }
 
-
-}*/
-
+}
 
 
